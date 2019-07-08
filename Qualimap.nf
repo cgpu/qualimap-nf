@@ -83,12 +83,12 @@ process qualimap {
     file ("${bam_tag}") into qualimap_results
     file ("${bam_tag}.stats.txt") into flagstat_results
 
-    shell:
+    script:
     bam_tag=bam.baseName
     feature = qff.name != 'NO_FILE' ? "--feature-file $qff" : ''
     '''
-    !{params.qualimap} bamqc -nt !{params.cpu} !{feature} --skip-duplicated -bam !{bam} --java-mem-size=!{params.mem}G -outdir !{bam_tag} -outformat html
-    !{params.samtools} flagstat !{bam} > !{bam_tag}.stats.txt
+    qualimap bamqc -nt !{params.cpu} !{feature} --skip-duplicated -bam !{bam} --java-mem-size=!{params.mem}G -outdir !{bam_tag} -outformat html
+    samtools flagstat !{bam} > !{bam_tag}.stats.txt
     '''
 }
 
@@ -108,8 +108,8 @@ process multiqc {
     file("multiqc_report.html") into final_output
     file("multiqc_data/") into final_output_data
 
-    shell:
+    script:
     '''
-    !{params.multiqc} .
+    multiqc .
     '''
 }
