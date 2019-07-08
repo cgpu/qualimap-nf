@@ -20,9 +20,6 @@ params.help	= null
 params.config = null
 params.cpu = 1
 params.mem = 4
-params.qualimap = "qualimap"
-params.samtools = "samtools"
-params.multiqc = "multiqc"
 params.input_folder = null
 
 log.info ""
@@ -74,6 +71,7 @@ process qualimap {
     cpus params.cpu
     memory params.mem+'G'
     tag { bam_tag }
+    container 'maxulysse/sarek:latest'
 
     publishDir "${params.output_folder}/individual_reports", mode: 'copy'
 
@@ -97,6 +95,8 @@ process qualimap {
 process multiqc {
     cpus params.cpu
     memory params.mem+'G'
+    container 'ewels/multiqc:v1.7'
+
 
     publishDir "${params.output_folder}", mode: 'copy'
 
