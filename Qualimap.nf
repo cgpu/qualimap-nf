@@ -82,7 +82,6 @@ process qualimap {
 
     script:
     bam_tag=bam.baseName
-    feature = qff.name != 'NO_FILE' ? "--feature-file $qff" : ''
     '''
     qualimap \
     bamqc \
