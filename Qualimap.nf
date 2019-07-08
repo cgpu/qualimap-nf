@@ -61,9 +61,6 @@ if (params.help) {
 
 assert (params.input_folder != null) : "please provide the --input_folder option"
 
-params.feature_file = 'NO_FILE'
-qualimap_ff         = file(params.feature_file)
-
 bams = Channel.fromPath( params.input_folder+'/*.bam' )
               .ifEmpty { error "Cannot find any bam file in: ${params.input_folder}" }
 
