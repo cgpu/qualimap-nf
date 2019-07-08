@@ -74,7 +74,6 @@ process qualimap {
 
     input:
     file bam from bams
-    file qff from qualimap_ff
 
     output:
     file ("${bam_tag}") into qualimap_results
