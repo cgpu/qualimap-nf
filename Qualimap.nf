@@ -87,7 +87,17 @@ process qualimap {
     bam_tag=bam.baseName
     feature = qff.name != 'NO_FILE' ? "--feature-file $qff" : ''
     '''
-    qualimap bamqc -nt !{params.cpu} --skip-duplicated -bam !{bam} --java-mem-size=!{params.mem}G -outdir !{bam_tag} -outformat html
+    qualimap \
+    bamqc \
+    -bam !{bam} \
+    -nt !{params.cpu} \
+    --java-mem-size=!{params.mem}G \
+    --genome-gc-distr HUMAN \
+    --skip-duplicated \
+    --skip-dup-mode 0 \
+    --paint-chromosome-limits \
+    -outdir !{bam_tag} \
+    -outformat html \
     samtools flagstat !{bam} > !{bam_tag}.stats.txt
     '''
 }
