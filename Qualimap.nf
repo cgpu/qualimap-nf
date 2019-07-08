@@ -87,7 +87,7 @@ process qualimap {
     bam_tag=bam.baseName
     feature = qff.name != 'NO_FILE' ? "--feature-file $qff" : ''
     '''
-    qualimap bamqc -nt !{params.cpu} !{feature} --skip-duplicated -bam !{bam} --java-mem-size=!{params.mem}G -outdir !{bam_tag} -outformat html
+    qualimap bamqc -nt !{params.cpu} --skip-duplicated -bam !{bam} --java-mem-size=!{params.mem}G -outdir !{bam_tag} -outformat html
     samtools flagstat !{bam} > !{bam_tag}.stats.txt
     '''
 }
